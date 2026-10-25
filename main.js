@@ -266,7 +266,6 @@ const render = () => {
 render();
 
 /// slidebar
-
 const slideBarList = document.querySelector(".sidebar__menu-list");
 const mainPage = document.querySelector(".sidebar__menu-profile");
 const sittingsPage = document.querySelector(".sidebar__menu-sittings");
