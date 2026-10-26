@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Manager</title>
     <link rel="stylesheet" href="index.css" />
-    <script defer src="main.js"></script>
+    <link rel="stylesheet" href="responsive.css" />
+    <script type="module" src="js/main.js"></script>
   </head>
   <body class="body">
     <aside class="sidebar">
@@ -247,8 +248,10 @@
         <h1 class="main__dashboard">DashBoard</h1>
         <div class="dashboard__nav">
           <ul class="dashboard__menu">
-            <li class="dashboard__item">Overview</li>
-            <li class="dashboard__item">Tasks</li>
+            <li class="dashboard__item active" data-page="overview">
+              Overview
+            </li>
+            <li class="dashboard__item" data-page="tasks">Tasks</li>
             <li class="dashboard__item">Documents</li>
             <li class="dashboard__item">High</li>
             <li class="dashboard__item">Middle</li>
@@ -256,7 +259,14 @@
           </ul>
           <div class="dashboard__searsh">
             <button class="create_task-btn">
-              <svg width="24" height="24" stroke="#fff" class="ico" viewBox="0 0 24 24" aria-hidden="true">
+              <svg
+                width="24"
+                height="24"
+                stroke="#fff"
+                class="ico"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
                 <path d="M12 5v14M5 12h14"></path>
               </svg>
               Create
@@ -264,12 +274,93 @@
           </div>
         </div>
 
-        <div class="dashboard__task-list">
+        <!-- ===== OVERVIEW ===== -->
+        <section class="page page-overview active" data-page="overview">
+          <p class="ov-subtitle"></p>
+
+          <div class="ov-stats">
+            <div class="ov-stat" data-stat="today">
+              <div class="ov-stat-label">
+                <i class="dot dot-gray"></i>На сегодня
+              </div>
+              <div class="ov-stat-value">0</div>
+              <div class="ov-stat-note"></div>
+            </div>
+            <div class="ov-stat" data-stat="progress">
+              <div class="ov-stat-label">
+                <i class="dot dot-blue"></i>В процессе
+              </div>
+              <div class="ov-stat-value">0</div>
+              <div class="ov-stat-note"></div>
+            </div>
+            <div class="ov-stat" data-stat="overdue">
+              <div class="ov-stat-label">
+                <i class="dot dot-red"></i>Просрочено
+              </div>
+              <div class="ov-stat-value">0</div>
+              <div class="ov-stat-note"></div>
+            </div>
+            <div class="ov-stat" data-stat="done">
+              <div class="ov-stat-label">
+                <i class="dot dot-purple"></i>Выполнено
+              </div>
+              <div class="ov-stat-value">0</div>
+              <div class="ov-stat-note"></div>
+            </div>
+          </div>
+
+          <div class="ov-grid">
+            <div class="ov-col">
+              <section class="ov-card">
+                <header class="ov-card-head">
+                  <h2 class="ov-card-title">
+                    <span class="ov-today-title">Сегодня</span>
+                    <span class="ov-count ov-today-count">0</span>
+                  </h2>
+                  <button class="ov-link" data-goto="tasks">Все задачи</button>
+                </header>
+                <div class="ov-today-list"></div>
+              </section>
+
+              <section class="ov-card">
+                <header class="ov-card-head">
+                  <h2 class="ov-card-title">
+                    В процессе <span class="ov-count ov-progress-count">0</span>
+                  </h2>
+                  <button class="ov-link" data-goto="tasks">
+                    Открыть доску
+                  </button>
+                </header>
+                <div class="ov-progress-list"></div>
+              </section>
+            </div>
+
+            <div class="ov-col">
+              <section class="ov-card">
+                <header class="ov-card-head">
+                  <h2 class="ov-card-title">
+                    События <span class="ov-count ov-events-count">0</span>
+                  </h2>
+                  <button class="ov-link ov-add-event">+ Событие</button>
+                </header>
+                <div class="ov-events-list"></div>
+              </section>
+
+              <section class="ov-card">
+                <h2 class="ov-card-title">Неделя</h2>
+                <div class="ov-week"></div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TASKS (доска) ===== -->
+        <div class="dashboard__task-list page page-tasks" data-page="tasks">
           <div class="dashboard__task-container">
             <div class="dashboard-container todo">
               <div class="dashboard-title-box">
                 <h2 class="todo-task-title task-list-title">Todo</h2>
-                <div class="quantity-tasks">1</div>
+                <div class="quantity-tasks quantity-todo">0</div>
               </div>
               <div class="dashboard__todo_tasks"></div>
             </div>
@@ -277,7 +368,7 @@
             <div class="dashboard-container progress">
               <div class="dashboard-title-box">
                 <h2 class="progress-task-title task-list-title">In progress</h2>
-                <div class="quantity-tasks">1</div>
+                <div class="quantity-tasks quantity-in_progress">0</div>
               </div>
               <div class="dashboard__progress_tasks"></div>
             </div>
@@ -285,7 +376,7 @@
             <div class="dashboard-container done">
               <div class="dashboard-title-box">
                 <h2 class="done-task-title task-list-title">Done</h2>
-                <div class="quantity-tasks">1</div>
+                <div class="quantity-tasks quantity-done">0</div>
               </div>
               <div class="dashboard__done_tasks"></div>
             </div>
