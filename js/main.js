@@ -6,6 +6,7 @@ import { openTaskModal } from "./views/modal.js";
 import { initSidebar } from "./views/sidebar.js";
 import { initTabs } from "./views/tabs.js";
 import { initBurger } from "./views/burger.js";
+import { initAuth } from "./views/auth.js";
 
 registerRenderer(renderBoard);
 registerRenderer(renderTrash);
@@ -20,6 +21,12 @@ document
   .addEventListener("click", () => openTaskModal());
 
 renderAll();
+initAuth();
 
 // раз в минуту двигаем красную линию "сейчас"
 setInterval(renderOverview, 60000);
+
+// превращаем сайт в устанавливаемое приложение
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
+}
