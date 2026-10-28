@@ -168,7 +168,6 @@
   /* в шапке остаётся только кнопка Create */
   .dashboard__nav {
     justify-content: flex-end;
-    margin-top: 16px;
   }
 }
 

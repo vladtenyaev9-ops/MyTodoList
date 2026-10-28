@@ -180,9 +180,8 @@ svg * {
 }
 
 .main {
-  margin: 20px;
   width: 100%;
-  display: flex; /* добавить */
+  display: flex;
   flex-direction: column;
 }
 .dashboard {
@@ -193,7 +192,7 @@ svg * {
 .dashboard__nav {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #b3b4b6d0;
 }
@@ -208,7 +207,6 @@ svg * {
 }
 .dashboard__item {
   padding: 10px;
-  border-radius: 14px;
 }
 .dashboard__item:hover {
   background-color: #dcdee17d;
@@ -370,18 +368,25 @@ svg * {
 .sittings_trash.active {
   background-color: #747b82;
 }
-
+.sidebar__menu-profile{
+  padding: 5px;
+  border-radius: 14px;
+}
 .sidebar__menu-profile.active {
-  background-color: #747b82;
+background-color: #bfc5cc;
 }
 .sidebar__menu-profile:hover {
-  background-color: #747b82;
+  background-color: #bfc5cc;
+}
+.sidebar__menu-sittings{
+  padding: 5px;
+  border-radius: 14px;
 }
 .sidebar__menu-sittings.active {
-  background-color: #747b82;
+ background-color: #bfc5cc;
 }
 .sidebar__menu-sittings:hover {
-  background-color: #747b82;
+background-color: #bfc5cc;
 }
 
 .sidebar__menu-item.active {
@@ -531,12 +536,12 @@ svg * {
 }
 .dashboard__item.active {
   color: #111;
-  border-bottom: 2px solid #111;
+  border-bottom: 1px solid #111;
 }
 
 /* Overview */
 
-.page-overview{
+.page-overview {
   margin-top: 15px;
 }
 .ov-subtitle {
@@ -950,6 +955,11 @@ body.body {
   overflow-y: auto;
 }
 
+@media (width > 900px) {
+  .main {
+    margin: 20px;
+  }
+}
 @media (max-width: 900px) {
   .body {
     flex-direction: column;
@@ -999,7 +1009,11 @@ body.body {
   }
 
   .main {
-    margin: 20px;
+    margin: 20;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
   }
 
   .dashboard__task-container {
@@ -1014,7 +1028,7 @@ body.body {
   }
 
   .main {
-    margin: 16px 14px 24px;
+    padding: 16px 14px 24px;
   }
 
   .main__dashboard {
@@ -1025,7 +1039,6 @@ body.body {
     align-items: stretch;
     flex-direction: column;
     gap: 12px;
-    margin-top: 20px;
   }
 
   .dashboard__menu {
