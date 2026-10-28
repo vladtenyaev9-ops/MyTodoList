@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getAuth,
   onAuthStateChanged,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -20,8 +19,6 @@ import {
   setSyncHook,
 } from "./storage.js";
 import { renderAll } from "./app.js";
-
-// ВСТАВЬ СВОЁ из консоли Firebase
 
 const firebaseConfig = {
   apiKey: "AIzaSyCjaK6nOn1qBg7B0QXL3FNonsoaVcWzk0c",
@@ -45,33 +42,38 @@ const push = () => {
   timer = setTimeout(() => {
     const data = JSON.parse(JSON.stringify(getAll()));
     setDoc(doc(db, "users", uid), { ...data, updatedAt: getUpdatedAt() }).catch(
-      console.error,
+      err => console.error("Не удалось отправить в облако:", err.code || err),
     );
   }, 600);
 };
 
-// любое сохранение в storage.js теперь вызывает push
+// любое сохранение в storage.js вызывает push
 setSyncHook(push);
 
 // слушаем облако: если на другом устройстве что-то изменили, получаем тут
 const startSync = () => {
-  stopListening = onSnapshot(doc(db, "users", uid), snap => {
-    if (snap.metadata.hasPendingWrites) return; // это наша собственная запись
+  stopListening = onSnapshot(
+    doc(db, "users", uid),
+    snap => {
+      if (snap.metadata.hasPendingWrites) return; // это наша собственная запись
 
-    const remote = snap.data();
-    if (!remote) {
-      push(); // новый аккаунт: загружаем то, что уже есть на устройстве
-      return;
-    }
+      const remote = snap.data();
+      if (!remote) {
+        push(); // в облаке пусто: загружаем то, что есть на устройстве
+        return;
+      }
 
-    const local = getUpdatedAt();
-    if (remote.updatedAt > local) {
-      replaceAll(remote, remote.updatedAt); // в облаке новее
-      renderAll();
-    } else if (remote.updatedAt < local) {
-      push(); // на устройстве новее
-    }
-  });
+      const remoteTime = Number(remote.updatedAt) || 0;
+      const local = getUpdatedAt();
+      if (remoteTime > local) {
+        replaceAll(remote, remoteTime); // в облаке новее
+        renderAll();
+      } else if (remoteTime < local) {
+        push(); // на устройстве новее
+      }
+    },
+    err => console.error("Ошибка синхронизации:", err.code || err),
+  );
 };
 
 const stopSync = () => {
@@ -79,9 +81,6 @@ const stopSync = () => {
   stopListening = null;
   clearTimeout(timer);
 };
-
-export const signUp = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
 
 export const signIn = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
