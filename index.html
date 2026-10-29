@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task Manager</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
 
-  <meta
-    http-equiv="Content-Security-Policy"
-    content="default-src 'self';
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
              script-src 'self' https://www.gstatic.com https://apis.google.com;
              connect-src 'self' https://*.googleapis.com;
              frame-src https://my-todo-71475.firebaseapp.com;
@@ -19,22 +19,23 @@
              object-src 'none';
              base-uri 'self';
              form-action 'self'"
-  />
-  <meta name="referrer" content="no-referrer" />
-  <meta name="robots" content="noindex, nofollow" />
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="robots" content="noindex, nofollow" />
 
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#111111" />
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Tasks" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#111111" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Tasks" />
 
-  <link rel="stylesheet" href="index.css" />
-  <link rel="stylesheet" href="responsive.css" />
-  <link rel="stylesheet" href="auth.css" />
-  <script type="module" src="js/main.js"></script>
-</head>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="responsive.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <link rel="stylesheet" href="features.css" />
+    <script type="module" src="js/main.js"></script>
+  </head>
   <body class="body">
     <aside class="sidebar">
       <h2 class="logo">Task <br />manager</h2>
@@ -264,13 +265,14 @@
     </aside>
     <main class="main">
       <div class="dashboard">
-  <p class="ov-subtitle"></p>
+        <p class="ov-subtitle"></p>
         <div class="dashboard__nav">
           <ul class="dashboard__menu">
             <li class="dashboard__item active" data-page="overview">
               Overview
             </li>
             <li class="dashboard__item" data-page="tasks">Tasks</li>
+            <li class="dashboard__item" data-page="calendar">Calendar</li>
             <!-- <li class="dashboard__item">Documents</li>
             <li class="dashboard__item">High</li>
             <li class="dashboard__item">Middle</li>
@@ -295,8 +297,6 @@
 
         <!-- ===== OVERVIEW ===== -->
         <section class="page page-overview active" data-page="overview">
-        
-
           <div class="ov-stats">
             <div class="ov-stat" data-stat="today">
               <div class="ov-stat-label">
@@ -401,6 +401,48 @@
             </div>
           </div>
         </div>
+        <section class="page page-calendar" data-page="calendar">
+          <div class="cal-layout">
+            <div class="cal-card">
+              <header class="cal-head">
+                <button
+                  type="button"
+                  class="cal-nav cal-prev"
+                  aria-label="Предыдущий месяц"
+                >
+                  ‹
+                </button>
+                <h2 class="cal-title"></h2>
+                <button
+                  type="button"
+                  class="cal-nav cal-next"
+                  aria-label="Следующий месяц"
+                >
+                  ›
+                </button>
+                <button type="button" class="cal-today">Сегодня</button>
+              </header>
+              <div class="cal-weekdays"></div>
+              <div class="cal-grid"></div>
+            </div>
+
+            <div class="cal-card cal-day">
+              <header class="cal-day-head">
+                <div>
+                  <h2 class="cal-day-title"></h2>
+                  <p class="cal-day-load"></p>
+                </div>
+                <button type="button" class="ov-btn cal-add">+ Добавить</button>
+              </header>
+              <p class="cal-hint">
+                Нажми на свободное место на шкале, чтобы добавить дело на это
+                время
+              </p>
+              <div class="cal-unscheduled"></div>
+              <div class="cal-timeline"></div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   </body>

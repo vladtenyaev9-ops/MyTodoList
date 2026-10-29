@@ -286,6 +286,7 @@ svg * {
 .dashboard-container.progress {
   border-top: 3px solid #3b6ff5;
   background-color: #efefeb;
+   min-height: 100vh;
 }
 
 .dashboard-title-box {
@@ -716,6 +717,7 @@ background-color: #bfc5cc;
   padding: 18px;
   margin-bottom: 12px;
   border: 1px solid #eee;
+ 
 }
 .ov-progress.is-high {
   background: #fdeceb;

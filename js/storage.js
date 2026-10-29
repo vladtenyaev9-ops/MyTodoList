@@ -1,7 +1,9 @@
 const PRIORITIES = ["LOW", "MIDDLE", "HIGH"];
 const STATUSES = ["todo", "inProgress", "done"];
+const REPEATS = ["none", "daily", "weekdays", "weekly", "monthly"];
 
 const str = v => (typeof v === "string" ? v : "");
+const num = v => (Number(v) > 0 ? Math.round(Number(v)) : 0);
 
 const cleanTask = t => {
   const priority = String(t.priority).toUpperCase();
@@ -15,6 +17,11 @@ const cleanTask = t => {
     dueDate: str(t.dueDate),
     dueTime: str(t.dueTime),
     plannedDate: str(t.plannedDate),
+    plannedTime: str(t.plannedTime),
+    estimate: num(t.estimate), // сколько минут займёт
+    repeat: REPEATS.includes(t.repeat) ? t.repeat : "none",
+    spawned: Boolean(t.spawned), // следующая копия уже создана
+    spentMinutes: num(t.spentMinutes), // для таймера фокуса
     completedAt: str(t.completedAt),
     createdAt: str(t.createdAt),
   };
@@ -25,8 +32,9 @@ const cleanEvent = e => ({
   title: str(e.title),
   date: str(e.date),
   time: str(e.time),
-  duration: Number(e.duration) || 60,
+  duration: num(e.duration) || 60,
   place: str(e.place),
+  repeat: REPEATS.includes(e.repeat) ? e.repeat : "none",
 });
 
 // превращает что угодно в безопасный массив

@@ -12,7 +12,12 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
+@media (max-width: 600px) {
+  .dashboard__task-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
 /* ---------- мобильный и планшет: сайдбар = выдвижное меню ---------- */
 @media (max-width: 900px) {
   .body {
@@ -177,5 +182,21 @@
   }
   .create_task-btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard__todo_tasks,
+  .dashboard__progress_tasks,
+  .dashboard__done_tasks {
+    --card-h: 230px; /* высота одной карточки + отступ между ними */
+    max-height: calc(var(--card-h) * 1.5);
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .dashboard-container.progress ,
+  .dashboard-container.todo,
+  .dashboard-container.done{
+    min-height: 80px;
   }
 }

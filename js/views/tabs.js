@@ -18,6 +18,8 @@ export const initTabs = () => {
     btn.addEventListener("click", () => showPage(btn.dataset.goto));
   });
 
+  // открываем последнюю страницу, если она ещё существует
   const saved = localStorage.getItem("page");
-  showPage(saved === "tasks" ? "tasks" : "overview");
+  const exists = saved && document.querySelector(`.page[data-page="${saved}"]`);
+  showPage(exists ? saved : "overview");
 };

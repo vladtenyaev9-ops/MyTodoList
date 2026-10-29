@@ -1,0 +1,258 @@
+/* ===== Календарь и план дня ===== */
+.cal-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.cal-card {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* шапка месяца */
+.cal-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.cal-title {
+  flex: 1;
+  margin: 0;
+  font-size: 20px;
+}
+.cal-nav,
+.cal-today {
+  height: 36px;
+  min-width: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+.cal-today {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* сетка */
+.cal-weekdays,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+.cal-weekdays span {
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  padding: 4px 0;
+}
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: none;
+  cursor: pointer;
+}
+.cal-cell:hover {
+  background: #f4f4f2;
+}
+.cal-cell.other {
+  color: #bbb;
+}
+.cal-cell.today {
+  border-color: #111;
+}
+.cal-cell.selected {
+  background: #111;
+  color: #fff;
+}
+.cal-num {
+  font-weight: 700;
+}
+.cal-dots {
+  display: flex;
+  gap: 3px;
+  height: 5px;
+}
+.cal-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #aaa;
+}
+.cal-cell.selected .cal-dots i {
+  background: #fff;
+}
+
+/* день */
+.cal-day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.cal-day-title {
+  margin: 0;
+  font-size: 20px;
+}
+.cal-day-load {
+  margin: 4px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+.cal-day-load.warn {
+  color: #c0392b;
+  font-weight: 600;
+}
+.cal-hint {
+  margin: 12px 0 0;
+  color: #999;
+  font-size: 13px;
+}
+
+.cal-unscheduled-title {
+  margin: 14px 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+}
+.cal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cal-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* шкала часов */
+.cal-timeline {
+  position: relative;
+  margin-top: 20px;
+}
+.cal-hour {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px solid #eee;
+}
+.cal-hour span {
+  position: absolute;
+  top: -9px;
+  left: 0;
+  width: 44px;
+  background: #fff;
+  font-size: 12px;
+  color: #999;
+}
+.cal-blocks {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 52px;
+  right: 0;
+  cursor: copy;
+}
+.cal-block {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.2;
+  overflow: hidden;
+  cursor: pointer;
+}
+.cal-block b {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cal-block span {
+  color: #555;
+  font-size: 12px;
+}
+.cal-block.event {
+  background: #e7eefc;
+  border-color: #c8d7f7;
+}
+.cal-block.done {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+/* цвета приоритета (блоки и чипы) */
+.p-high {
+  background: #fdeceb;
+}
+.p-middle {
+  background: #fcf5df;
+}
+.p-low {
+  background: #eaf7eb;
+}
+
+.cal-now {
+  position: absolute;
+  left: 44px;
+  right: 0;
+  height: 2px;
+  background: #d9534f;
+  pointer-events: none;
+  z-index: 2;
+}
+.cal-now::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d9534f;
+}
+
+/* модальное окно: подсказка и кнопка удаления */
+.modal-hint {
+  color: #999;
+  font-size: 12px;
+}
+.modal-delete {
+  color: #c0392b;
+  border: 1px solid #f0c9c5;
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+@media (max-width: 1000px) {
+  .cal-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

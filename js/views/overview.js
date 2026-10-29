@@ -8,7 +8,7 @@ import {
 } from "../utils.js";
 import {
   getTodayStr, toDateStr, getPlannedFor, getInProgress,
-  getOverdue, getOverdueDays, getDoneThisWeek, countForDate,
+  getOverdue, getOverdueDays, getDoneThisWeek, countForDate, eventsOn,
 } from "../selectors.js";
 import { openTaskModal, openEventModal } from "./modal.js";
 
@@ -33,8 +33,7 @@ const setStat = (name, value, note) => {
 const getDayItems = date => {
   const items = [];
 
-  events
-    .filter(e => e.date === date)
+  eventsOn(date)
     .forEach(e =>
       items.push({
         kind: "event",
